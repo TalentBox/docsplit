@@ -14,6 +14,12 @@ task :openoffice do
   sh "/Applications/OpenOffice.org.app/Contents/MacOS/soffice.bin soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard"
 end
 
+desc 'Launch Libre for testing'
+task :libreoffice do
+  sh "/Applications/LibreOffice.app/Contents/MacOS/soffice.bin soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard"
+end
+
+
 namespace :gem do
 
   desc 'Build and install the docsplit gem'
