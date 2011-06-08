@@ -3,8 +3,10 @@ require 'rake/testtask'
 
 desc 'Run all tests'
 task :test do
-  $LOAD_PATH.unshift(File.expand_path('test'))
-  require 'redgreen' if Gem.available?('redgreen')
+  $LOAD_PATH.unshift File.expand_path('..', __FILE__)
+  $LOAD_PATH.unshift File.expand_path('../test', __FILE__)
+  require 'redgreen' if RUBY_VERSION.to_f < 1.9 && Gem.available?('redgreen')
+  require 'turn' if RUBY_VERSION.to_f >= 1.9 && Gem.available?('turn')
   require 'test/unit'
   Dir['test/*/**/test_*.rb'].each {|test| require test }
 end
