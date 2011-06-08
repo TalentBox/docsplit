@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir['build/**/*', 'lib/**/*', 'bin/*', 'vendor/**/*',
                 'docsplit.gemspec', 'LICENSE', 'README']
+
+  s.add_runtime_dependency("file_wrapper", ["~> 0.4.1"])
 end

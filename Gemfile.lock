@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    talentbox-docsplit (0.5.2)
+      file_wrapper (~> 0.4.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ansi (1.2.5)
+    file_wrapper (0.4.1)
+    redgreen (1.2.2)
+    turn (0.8.2)
+      ansi (>= 1.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  redgreen
+  talentbox-docsplit!
+  turn
