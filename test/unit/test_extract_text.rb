@@ -9,6 +9,12 @@ class ExtractTextTest < Test::Unit::TestCase
     assert File.read("#{OUTPUT}/obama_arts_1.txt").match("Paid for by Obama for America")
   end
 
+  def test_paged_extraction_with_space_in_path
+    Docsplit.extract_text('test/fixtures/with space/obama arts.pdf', :pages => 'all', :output => OUTPUT)
+    assert Dir["#{OUTPUT}/*.txt"].length == 2
+    assert File.read("#{OUTPUT}/obama arts_1.txt").match("Paid for by Obama for America")
+  end
+
   def test_page_only_extraction
     Docsplit.extract_text('test/fixtures/obama_arts.pdf', :pages => 2..2, :output => OUTPUT)
     assert Dir["#{OUTPUT}/*.txt"] == ["#{OUTPUT}/obama_arts_2.txt"]

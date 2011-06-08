@@ -4,6 +4,7 @@ class ConvertToPdfTest < Test::Unit::TestCase
 
   def test_doc_conversion
     Docsplit.extract_pdf('test/fixtures/obama_veterans.doc', :output => OUTPUT)
+    $stdout.puts Dir["#{OUTPUT}/*"].inspect
     assert Dir["#{OUTPUT}/*.pdf"] == ["#{OUTPUT}/obama_veterans.pdf"]
   end
 

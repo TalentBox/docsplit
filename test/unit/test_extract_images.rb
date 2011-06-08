@@ -4,7 +4,8 @@ class ExtractImagesTest < Test::Unit::TestCase
 
   def test_basic_image_extraction
     Docsplit.extract_images('test/fixtures/obama_arts.pdf', :format => :gif, :size => "250x", :output => OUTPUT)
-    assert Dir["#{OUTPUT}/*"] == ['test/output/obama_arts_1.gif', 'test/output/obama_arts_2.gif']
+    
+    assert Dir["#{OUTPUT}/*"] == ["#{OUTPUT}/obama_arts_1.gif", "#{OUTPUT}/obama_arts_2.gif"]
   end
 
   def test_image_formatting
@@ -36,9 +37,9 @@ class ExtractImagesTest < Test::Unit::TestCase
 
   def test_repeated_extraction_in_the_same_directory
     Docsplit.extract_images('test/fixtures/obama_arts.pdf', :format => :gif, :size => "250x", :output => OUTPUT)
-    assert Dir["#{OUTPUT}/*"] == ['test/output/obama_arts_1.gif', 'test/output/obama_arts_2.gif']
+    assert Dir["#{OUTPUT}/*"] == ["#{OUTPUT}/obama_arts_1.gif", "#{OUTPUT}/obama_arts_2.gif"]
     Docsplit.extract_images('test/fixtures/obama_arts.pdf', :format => :gif, :size => "250x", :output => OUTPUT)
-    assert Dir["#{OUTPUT}/*"] == ['test/output/obama_arts_1.gif', 'test/output/obama_arts_2.gif']
+    assert Dir["#{OUTPUT}/*"] == ["#{OUTPUT}/obama_arts_1.gif", "#{OUTPUT}/obama_arts_2.gif"]
   end
 
 end
