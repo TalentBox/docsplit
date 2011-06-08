@@ -17,6 +17,8 @@ module Docsplit
   
   GM_FORMATS    = [:png, :gif, :jpg, :jpeg, :tif, :tiff, :bmp, :pnm, :ppm, :svg, :eps]
 
+  GM_FORMATS    = [:png, :gif, :jpg, :jpeg, :tif, :tiff, :bmp, :pnm, :ppm, :svg, :eps]
+
   DEPENDENCIES  = {:java => false, :gm => false, :pdftotext => false, :pdftk => false, :tesseract => false}
 
   # Check for all dependencies, and warn of their absence.
@@ -93,7 +95,7 @@ module Docsplit
   # Runs a Java command, with quieted logging, and the classpath set properly.
   def self.run(command, pdfs, opts, return_output=false)
     pdfs    = [pdfs].flatten.map{|pdf| "\"#{pdf}\""}.join(' ')
-    cmd     = "java #{HEADLESS} #{LOGGING} #{OFFICE} -cp #{CLASSPATH} #{command} #{pdfs} 2>&1"
+    cmd     = "java #{HEADLESS} #{LOGGING} #{OfficeUtils.new.get_office_path} -cp #{CLASSPATH} #{command} #{pdfs} 2>&1"
     result  = `#{cmd}`.chomp
     raise ExtractionFailed, result if $? != 0
     return return_output ? (result.empty? ? nil : result) : true
@@ -119,3 +121,4 @@ require "#{Docsplit::ROOT}/lib/docsplit/text_extractor"
 require "#{Docsplit::ROOT}/lib/docsplit/page_extractor"
 require "#{Docsplit::ROOT}/lib/docsplit/info_extractor"
 require "#{Docsplit::ROOT}/lib/docsplit/text_cleaner"
+require "#{Docsplit::ROOT}/lib/docsplit/office_utils"
