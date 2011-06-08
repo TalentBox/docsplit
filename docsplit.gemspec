@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name      = 'docsplit'
+  s.name      = 'talentbox-docsplit'
   s.version   = '0.5.2'         # Keep version in sync with docsplit.rb
   s.date      = '2011-05-13'
 
