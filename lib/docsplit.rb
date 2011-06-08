@@ -14,8 +14,8 @@ module Docsplit
   OFFICE        = RUBY_PLATFORM.match(/darwin/i) ? '' : '-Doffice.home=/usr/lib/openoffice'
 
   METADATA_KEYS = [:author, :date, :creator, :keywords, :producer, :subject, :title, :length]
-  
-  GM_FORMATS    = [:png, :gif, :jpg, :jpeg, :tif, :tiff, :bmp, :pnm, :ppm, :svg, :eps]
+
+  GM_MIME_TYPES = ["image/png", "image/gif", "image/jpeg", "image/tiff", "image/x-ms-bmp", "image/x-portable-anymap", "image/x-portable-pixmap", "mage/svg+xml", "application/postscript"]
 
   DEPENDENCIES  = {:java => false, :gm => false, :pdftotext => false, :pdftk => false, :tesseract => false}
 
@@ -60,9 +60,9 @@ module Docsplit
     out = opts[:output] || '.'
     FileUtils.mkdir_p out unless File.exists?(out)
     [docs].flatten.each do |doc|
-      ext = File.extname(doc)
-      basename = File.basename(doc, ext)
-      if ext.length > 0 && GM_FORMATS.include?(ext.sub(/^\./, '').downcase.to_sym)
+      mime = FileWrapper.get_mime(doc)
+      basename = File.basename(doc, File.extname(doc))
+      if GM_MIME_TYPES.include?(mime)
         `gm convert "#{doc}" "#{out}/#{basename}.pdf"`
       else
         options = "-jar #{ROOT}/vendor/jodconverter/jodconverter-core-3.0-beta-3.jar -r #{ROOT}/vendor/conf/document-formats.js"
@@ -108,11 +108,11 @@ module Docsplit
     else            value.to_s
     end
   end
-
 end
 
 require 'tmpdir'
 require 'fileutils'
+require 'file_wrapper'
 require "#{Docsplit::ROOT}/lib/docsplit/image_extractor"
 require "#{Docsplit::ROOT}/lib/docsplit/transparent_pdfs"
 require "#{Docsplit::ROOT}/lib/docsplit/text_extractor"

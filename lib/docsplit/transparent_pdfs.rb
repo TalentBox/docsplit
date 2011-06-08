@@ -8,13 +8,13 @@ module Docsplit
     # through further extraction.
     def ensure_pdfs(docs)
       [docs].flatten.map do |doc|
-        ext = File.extname(doc)
-        if ext.downcase == '.pdf'
+        mime = FileWrapper.get_mime(doc)
+        if mime == "application/pdf"
           doc
         else
           tempdir = File.join(Dir.tmpdir, 'docsplit')
           extract_pdf([doc], {:output => tempdir})
-          File.join(tempdir, File.basename(doc, ext) + '.pdf')
+          File.join(tempdir, File.basename(doc, File.extname(doc)) + '.pdf')
         end
       end
     end
